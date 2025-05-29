@@ -25,8 +25,10 @@ function App() {
   const [isLoadingIntent, setIsLoadingIntent] = useState<boolean>(false);
   const [isLoadingSql, setIsLoadingSql] = useState<boolean>(false);
   const [isLoadingTable, setIsLoadingTable] = useState<boolean>(false);
-  const [overallLoading, setOverallLoading] = useState<boolean>(false);
+  // const [overallLoading, setOverallLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+
+  const overallLoading = isLoadingIntent || isLoadingSql || isLoadingTable;
 
   // --- Mock API Simulation Functions ---
 // Inside src/App.tsx, replace the existing simulateUnderstandingIntent function
@@ -152,7 +154,7 @@ const simulateGeneratingSQL = (intent: string): Promise<GeneratedSQL> => {
     setGeneratedSql(null);
     setTableData(null);
     setError(null);
-    setOverallLoading(true);
+    // setOverallLoading(true);
 
     try {
       // Step 1: Understanding intent
@@ -179,7 +181,7 @@ const simulateGeneratingSQL = (intent: string): Promise<GeneratedSQL> => {
       setIsLoadingSql(false);
       setIsLoadingTable(false);
     } finally {
-      setOverallLoading(false);
+      // setOverallLoading(false);
     }
   };
 
@@ -193,6 +195,7 @@ const simulateGeneratingSQL = (intent: string): Promise<GeneratedSQL> => {
       <main className="max-w-4xl mx-auto space-y-6">
         <section className="bg-white p-6 rounded-lg shadow-xl">
             <h2 className="text-2xl font-bold text-gray-800 mb-4 text-center">AI Query Console</h2>
+          {/* <QueryInput onSubmit={handleQuerySubmit} isLoading={overallLoading} /> */}
           <QueryInput onSubmit={handleQuerySubmit} isLoading={overallLoading} />
         </section>
 
