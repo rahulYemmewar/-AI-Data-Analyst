@@ -1,4 +1,3 @@
-// src/components/DataTable.tsx
 import React from 'react';
 
 interface DataTableProps {
@@ -12,7 +11,7 @@ const DataTable: React.FC<DataTableProps> = ({ data, isLoading }) => {
       <div className="flex justify-center items-center p-8 bg-white rounded-lg shadow-sm border border-gray-200 min-h-[200px]">
         <svg
           className="animate-spin text-blue-500"
-          style={{ width: '5%', height: '5%', minWidth: 24, minHeight: 24 }}
+          style={{ width: '3%', height: '3%', minWidth: 24, minHeight: 24 }}
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
@@ -36,31 +35,41 @@ const DataTable: React.FC<DataTableProps> = ({ data, isLoading }) => {
   const columns = Object.keys(data[0]);
 
   return (
-    <div className="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
+    <div className="relative overflow-x-auto">
+      <table className="w-full text-sm text-left rtl:text-right text-gray-500">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 bg-gray-700 text-gray-400">
           <tr>
             {columns.map((col) => (
               <th
                 key={col}
                 scope="col"
-                className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                className="px-6 py-3"
               >
                 {col.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase())}
               </th>
             ))}
           </tr>
         </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+        <tbody>
           {data.map((row, rowIndex) => (
-            <tr key={rowIndex}>
+            <tr
+              key={rowIndex}
+              className={rowIndex % 2 === 0 ? "bg-white" : "bg-gray-50"}
+            >
               {columns.map((col, colIndex) => (
-                <td
-                  key={colIndex}
-                  className="px-6 py-4 whitespace-nowrap text-sm text-gray-900"
-                >
-                  {row[col]}
-                </td>
+                colIndex === 0 ? (
+                  <th
+                    key={colIndex}
+                    scope="row"
+                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap border-b border-gray-200"
+                  >
+                    {row[col]}
+                  </th>
+                ) : (
+                  <td key={colIndex} className="px-6 py-4 border-b border-gray-200">
+                    {row[col]}
+                  </td>
+                )
               ))}
             </tr>
           ))}

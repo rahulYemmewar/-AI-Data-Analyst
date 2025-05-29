@@ -9,7 +9,7 @@ interface LLMOutputDisplayProps {
 
 const LLMOutputDisplay: React.FC<LLMOutputDisplayProps> = ({ title, content, isLoading }) => {
   return (
-    <div className="p-4 bg-white rounded-lg shadow-sm border border-gray-200">
+    <div className="p-8 bg-white rounded-lg shadow-sm border border-gray-200">
       <h3 className="text-lg font-semibold text-gray-800 mb-2 flex items-center">
         {title}
         {isLoading && (

@@ -96,57 +96,109 @@ const simulateGeneratingSQL = (intent: string): Promise<GeneratedSQL> => {
   });
 };
 
-  const simulateQueryingDatabase = (sql: string): Promise<TableRow[]> => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Mock data based on SQL query
-        if (sql.toLowerCase().includes('revenue')) {
-          resolve([
-            { quarter: 'Q1 2023', revenue: 150000, yoy_growth: '5%' },
-            { quarter: 'Q2 2023', revenue: 175000, yoy_growth: '8%' },
-            { quarter: 'Q3 2023', revenue: 160000, yoy_growth: '3%' },
-            { quarter: 'Q4 2023', revenue: 200000, yoy_growth: '10%' },
-            { quarter: 'Q1 2024', revenue: 210000, yoy_growth: '7%' },
-          ]);
-        } else if (sql.toLowerCase().includes('product')) {
-          resolve([
-            { product_name: 'Product A', total_sales: 50000, category: 'Electronics', region: 'North America' },
-            { product_name: 'Product B', total_sales: 45000, category: 'Home', region: 'Europe' },
-            { product_name: 'Product C', total_sales: 30000, category: 'Electronics', region: 'Asia' },
-            { product_name: 'Product D', total_sales: 25000, category: 'Toys', region: 'North America' },
-            { product_name: 'Product E', total_sales: 20000, category: 'Home', region: 'Europe' },
-          ]);
-        } else if (sql.toLowerCase().includes('customer')) {
-          resolve([
-            { customer_id: 1, name: 'Alice', country: 'USA', total_orders: 15, last_order: '2024-05-01' },
-            { customer_id: 2, name: 'Bob', country: 'UK', total_orders: 10, last_order: '2024-04-15' },
-            { customer_id: 3, name: 'Carlos', country: 'Brazil', total_orders: 8, last_order: '2024-03-20' },
-            { customer_id: 4, name: 'Diana', country: 'Germany', total_orders: 12, last_order: '2024-05-10' },
-          ]);
-        } else if (sql.toLowerCase().includes('region')) {
-          resolve([
-            { region: 'North America', sales: 120000, profit: 30000 },
-            { region: 'Europe', sales: 95000, profit: 25000 },
-            { region: 'Asia', sales: 80000, profit: 20000 },
-            { region: 'South America', sales: 40000, profit: 10000 },
-          ]);
-        } else if (sql.toLowerCase().includes('inventory')) {
-          resolve([
-            { product_id: 101, product_name: 'Widget X', stock: 500, warehouse: 'A' },
-            { product_id: 102, product_name: 'Widget Y', stock: 200, warehouse: 'B' },
-            { product_id: 103, product_name: 'Widget Z', stock: 0, warehouse: 'A' },
-          ]);
-        } else {
-          resolve([
-            { id: 1, name: 'Mock Data 1', value: 100, status: 'active' },
-            { id: 2, name: 'Mock Data 2', value: 200, status: 'inactive' },
-            { id: 3, name: 'Mock Data 3', value: 300, status: 'pending' },
-          ]);
-        }
-      }, 2500 + Math.random() * 800); // Simulate network delay
-    });
-  };
+  // const simulateQueryingDatabase = (sql: string): Promise<TableRow[]> => {
+  //   return new Promise((resolve) => {
+  //     setTimeout(() => {
+  //       // Mock data based on SQL query
+  //       if (sql.toLowerCase().includes('revenue') || sql.toLowerCase().includes('quarter')) {
+  //         resolve([
+  //           { quarter: 'Q1 2023', revenue: 150000, yoy_growth: '5%' },
+  //           { quarter: 'Q2 2023', revenue: 175000, yoy_growth: '8%' },
+  //           { quarter: 'Q3 2023', revenue: 160000, yoy_growth: '3%' },
+  //           { quarter: 'Q4 2023', revenue: 200000, yoy_growth: '10%' },
+  //           { quarter: 'Q1 2024', revenue: 210000, yoy_growth: '7%' },
+  //         ]);
+  //       } else if (sql.toLowerCase().includes('product') || sql.toLowerCase().includes('slae') || sql.toLowerCase().includes('category')) {
+  //         resolve([
+  //           { product_name: 'Product A', total_sales: 50000, category: 'Electronics', region: 'North America' },
+  //           { product_name: 'Product B', total_sales: 45000, category: 'Home', region: 'Europe' },
+  //           { product_name: 'Product C', total_sales: 30000, category: 'Electronics', region: 'Asia' },
+  //           { product_name: 'Product D', total_sales: 25000, category: 'Toys', region: 'North America' },
+  //           { product_name: 'Product E', total_sales: 20000, category: 'Home', region: 'Europe' },
+  //         ]);
+  //       } else if (sql.toLowerCase().includes('customer') || sql.toLowerCase().includes('orders') || sql.toLowerCase().includes('country')) {
+  //         resolve([
+  //           { customer_id: 1, name: 'Alice', country: 'USA', total_orders: 15, last_order: '2024-05-01' },
+  //           { customer_id: 2, name: 'Bob', country: 'UK', total_orders: 10, last_order: '2024-04-15' },
+  //           { customer_id: 3, name: 'Carlos', country: 'Brazil', total_orders: 8, last_order: '2024-03-20' },
+  //           { customer_id: 4, name: 'Diana', country: 'Germany', total_orders: 12, last_order: '2024-05-10' },
+  //         ]);
+  //       } else if (sql.toLowerCase().includes('region')) {
+  //         resolve([
+  //           { region: 'North America', sales: 120000, profit: 30000 },
+  //           { region: 'Europe', sales: 95000, profit: 25000 },
+  //           { region: 'Asia', sales: 80000, profit: 20000 },
+  //           { region: 'South America', sales: 40000, profit: 10000 },
+  //         ]);
+  //       } else if (sql.toLowerCase().includes('inventory') || sql.toLowerCase().includes('stock')) {
+  //         resolve([
+  //           { product_id: 101, product_name: 'Widget X', stock: 500, warehouse: 'A' },
+  //           { product_id: 102, product_name: 'Widget Y', stock: 200, warehouse: 'B' },
+  //           { product_id: 103, product_name: 'Widget Z', stock: 0, warehouse: 'A' },
+  //         ]);
+  //       } else {
+  //         resolve([
+  //           { id: 1, name: 'Mock Data 1', value: 100, status: 'active' },
+  //           { id: 2, name: 'Mock Data 2', value: 200, status: 'inactive' },
+  //           { id: 3, name: 'Mock Data 3', value: 300, status: 'pending' },
+  //         ]);
+  //       }
+  //     }, 2500 + Math.random() * 800); // Simulate network delay
+  //   });
+  // };
   // --- End Mock API Simulation Functions ---
+
+  // Inside src/App.tsx, replace the existing simulateQueryingDatabase function
+const simulateQueryingDatabase = (sql: string): Promise<TableRow[]> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      // Mock data based on SQL query
+      if (sql.toLowerCase().includes('revenue') || sql.toLowerCase().includes('quarter')) {
+        resolve([
+          { quarter: 'Q1 2023', revenue: 150000, yoy_growth: '5%' },
+          { quarter: 'Q2 2023', revenue: 175000, yoy_growth: '8%' },
+          { quarter: 'Q3 2023', revenue: 160000, yoy_growth: '3%' },
+          { quarter: 'Q4 2023', revenue: 200000, yoy_growth: '10%' },
+          { quarter: 'Q1 2024', revenue: 210000, yoy_growth: '7%' },
+        ]);
+      } else if (sql.toLowerCase().includes('product') || sql.toLowerCase().includes('sale') || sql.toLowerCase().includes('category')) { // Corrected 'slae' to 'sale'
+        resolve([
+          { product_name: 'Product A', total_sales: 50000, category: 'Electronics', region: 'North America' },
+          { product_name: 'Product B', total_sales: 45000, category: 'Home', region: 'Europe' },
+          { product_name: 'Product C', total_sales: 30000, category: 'Electronics', region: 'Asia' },
+          { product_name: 'Product D', total_sales: 25000, category: 'Toys', region: 'North America' },
+          { product_name: 'Product E', total_sales: 20000, category: 'Home', region: 'Europe' },
+        ]);
+      } else if (sql.toLowerCase().includes('customer') || sql.toLowerCase().includes('orders') || sql.toLowerCase().includes('country')) {
+        resolve([
+          { customer_id: 1, name: 'Alice', country: 'USA', total_orders: 15, last_order: '2024-05-01' },
+          { customer_id: 2, name: 'Bob', country: 'UK', total_orders: 10, last_order: '2024-04-15' },
+          { customer_id: 3, name: 'Carlos', country: 'Brazil', total_orders: 8, last_order: '2024-03-20' },
+          { customer_id: 4, name: 'Diana', country: 'Germany', total_orders: 12, last_order: '2024-05-10' },
+        ]);
+      } else if (sql.toLowerCase().includes('region')) {
+        resolve([
+          { region: 'North America', sales: 120000, profit: 30000 },
+          { region: 'Europe', sales: 95000, profit: 25000 },
+          { region: 'Asia', sales: 80000, profit: 20000 },
+          { region: 'South America', sales: 40000, profit: 10000 },
+        ]);
+      } else if (sql.toLowerCase().includes('inventory') || sql.toLowerCase().includes('stock')) {
+        resolve([
+          { product_id: 101, product_name: 'Widget X', stock: 500, warehouse: 'A' },
+          { product_id: 102, product_name: 'Widget Y', stock: 200, warehouse: 'B' },
+          { product_id: 103, product_name: 'Widget Z', stock: 0, warehouse: 'A' },
+        ]);
+      } else {
+        resolve([
+          { id: 1, name: 'Mock Data 1', value: 100, status: 'active' },
+          { id: 2, name: 'Mock Data 2', value: 200, status: 'inactive' },
+          { id: 3, name: 'Mock Data 3', value: 300, status: 'pending' },
+        ]);
+      }
+    }, 2500 + Math.random() * 800); // Simulate network delay
+  });
+};
 
   const handleQuerySubmit = async (userQuery: string) => {
     setQuery(userQuery);
@@ -188,7 +240,11 @@ const simulateGeneratingSQL = (intent: string): Promise<GeneratedSQL> => {
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8 font-sans">
       <header className="mb-8 text-center">
-        <h1 className="text-4xl font-extrabold text-gray-900 mb-2">microGCC AI Data Analyst</h1>
+        {/* <h1 className="text-4xl font-extrabold text-gray-900 mb-2">microGCC AI Data Analyst</h1> */}
+        <div className='text-white flex items-center justify-between h-24 max-w-[1240px] mx-auto  px-4'>
+        <h1 className='w-full font-bold text-green-500 text-3xl '>microGCC AI Data Analys</h1>
+
+    </div>
         <p className="text-xl text-gray-600">Your natural language to data insights console.</p>
       </header>
 
@@ -222,10 +278,10 @@ const simulateGeneratingSQL = (intent: string): Promise<GeneratedSQL> => {
         )}
 
         {(tableData || isLoadingTable) && (
-          <section>
+          <span>
             <h2 className="text-2xl font-bold text-gray-800 mb-4">Results</h2>
             <DataTable data={tableData} isLoading={isLoadingTable} />
-          </section>
+          </span>
         )}
       </main>
     </div>
