@@ -7,7 +7,7 @@ import QueryInput from './QueryInput';
 describe('QueryInput', () => {
   test('renders the input field and submit button', () => {
     render(<QueryInput onSubmit={() => {}} isLoading={false} />);
-    expect(screen.getByPlaceholderText(/e.g., Show me revenue growth/i)).toBeInTheDocument();
+    expect(screen.getByPlaceholderText(/e.g., Show me revenue, country, product, region, inventory, stock, sales, orders, customer and category./i)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /Submit Query/i })).toBeInTheDocument();
   });
 
@@ -15,7 +15,7 @@ describe('QueryInput', () => {
     const mockOnSubmit = jest.fn(); // Create a mock function
     render(<QueryInput onSubmit={mockOnSubmit} isLoading={false} />);
 
-    const input = screen.getByPlaceholderText(/e.g., Show me revenue growth/i);
+    const input = screen.getByPlaceholderText(/e.g., Show me revenue, country, product, region, inventory, stock, sales, orders, customer and category./i);
     const submitButton = screen.getByRole('button', { name: /Submit Query/i });
 
     fireEvent.change(input, { target: { value: 'Test query' } });
@@ -34,7 +34,7 @@ describe('QueryInput', () => {
   test('disables input and button when isLoading is true', () => {
     render(<QueryInput onSubmit={() => {}} isLoading={true} />);
 
-    const input = screen.getByPlaceholderText(/e.g., Show me revenue growth/i);
+    const input = screen.getByPlaceholderText(/e.g., Show me revenue, country, product, region, inventory, stock, sales, orders, customer and category./i);
     // The button text changes to include "Processing..." when loading, so we use a regex
     const submitButton = screen.getByRole('button', { name: /Processing...|Submit Query/i });
 
