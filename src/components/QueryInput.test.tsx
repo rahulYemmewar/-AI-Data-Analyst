@@ -1,5 +1,4 @@
 // src/components/QueryInput.test.tsx
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import QueryInput from './QueryInput';
@@ -12,7 +11,7 @@ describe('QueryInput', () => {
   });
 
   test('calls onSubmit with the input value when submit button is clicked', async () => {
-    const mockOnSubmit = jest.fn(); // Create a mock function
+    const mockOnSubmit = jest.fn(); 
     render(<QueryInput onSubmit={mockOnSubmit} isLoading={false} />);
 
     const input = screen.getByPlaceholderText(/e.g., Show me revenue, country, product, region, inventory, stock, sales, orders, customer and category./i);
